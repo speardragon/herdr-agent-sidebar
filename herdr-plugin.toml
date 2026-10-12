@@ -1,0 +1,99 @@
+id = "speardragon.agent-sidebar"
+name = "Agent Sidebar"
+version = "1.0.0"
+min_herdr_version = "0.8.0"
+description = "Compact Agent sidebar: per-agent logo icons, project group headers and animated status marks."
+platforms = ["linux", "macos"]
+
+# Installs the bundled agent icon fonts for the current user (no sudo).
+[[build]]
+command = ["sh", "scripts/install-fonts.sh"]
+
+[[startup]]
+command = ["python3", "sync.py"]
+
+[[actions]]
+id = "sync"
+title = "Sync Agent sidebar tokens"
+contexts = ["workspace"]
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.created"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.moved"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.agent_detected"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "workspace.renamed"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "workspace.updated"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.closed"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.exited"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.agent_status_changed"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "tab.closed"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "tab.moved"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "workspace.closed"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "workspace.reordered"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "tab.renamed"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "pane.focused"
+command = ["python3", "sync.py"]
+
+[[events]]
+on = "tab.focused"
+command = ["python3", "sync.py"]
+
+[[actions]]
+id = "animations-toggle"
+title = "Toggle Agent animations"
+command = ["python3", "animations.py", "--toggle"]
+
+[[actions]]
+id = "animations-on"
+title = "Enable Agent animations"
+command = ["python3", "animations.py", "--on"]
+
+[[actions]]
+id = "animations-off"
+title = "Disable Agent animations"
+command = ["python3", "animations.py", "--off"]
+
+[[actions]]
+id = "animations-status"
+title = "Agent animations status"
+command = ["python3", "animations.py", "--status"]
